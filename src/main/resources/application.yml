@@ -1,0 +1,66 @@
+server:
+  port: 8089
+
+spring:
+  kafka:
+    properties:
+      sasl:
+        kerberos:
+          service:
+            name: kafka
+      security:
+        protocol: PLAINTEXT
+    consumer:
+      bootstrap-servers: localhost:29092
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    admin:
+      bootstrap-servers: localhost:29092
+
+kafka:
+  topic:
+    name: app_log_events
+
+generator:
+  log:
+    events:
+      hosts:
+        - worker01
+        - worker02
+        - worker03
+        - master01
+        - master02
+      apps:
+        - clients
+        - orders
+        - invoices
+      paths:
+        - ut.halo.ts
+        - com.microsoft.azure
+        - com.telecom.halo
+      severities:
+        - INFO
+        - DEBUG
+        - TRACE
+        - WARNING
+        - ERROR
+      messages:
+        - No active profile set, falling back to default profiles default
+        - Tomcat initialized with port(s) 8089 (http)
+        - Starting service [Tomcat]
+        - Starting Servlet engine [Apache Tomcat/9.0.39]
+        - Initializing Spring embedded WebApplicationContext
+        - Root WebApplicationContext initialization completed in 6766 ms
+        - Initializing ExecutorService 'applicationTaskExecutor'
+        - Initializing ExecutorService 'taskScheduler'
+        - Tomcat started on port(s) 8089 (http) with context path ''
+        - Started GeneratorApplication in 9.515 seconds (JVM running for 10.725)
+        - Shutting down ExecutorService 'taskScheduler'
+        - Shutting down ExecutorService 'applicationTaskExecutor'
+        - Error creating bean with name 'logEventGeneratorServiceImpl' Injection of autowired dependencies failed
+        - Caused by java.lang.IllegalArgumentException Could not resolve placeholder
